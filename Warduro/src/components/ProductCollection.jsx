@@ -6,6 +6,7 @@ import BottomLine from "./BottomLine";
 
 
 
+
 export default function ProductCollection() {
   const scrollToTop = () => {
     document.body.scrollTop = 0; // For Safari
