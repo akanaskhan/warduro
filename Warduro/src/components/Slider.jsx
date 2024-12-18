@@ -2,7 +2,7 @@ import Customize from "../assets/images/customize.png";
 import banner from "../assets/images/banner.png";
 function Slider() {
   return (
-    <div className="-z-50 mt-16 md:mt-20 lg:mt-10 xl:mt-10   h-vh ">
+    <div className="-z-50 mt-16 md:mt-20 lg:mt-10 xl:mt-10   h-vh themeBackground ">
       <div
         id="carouselExampleAutoplaying"
         className="carousel    carousel-fade   h-auto "
