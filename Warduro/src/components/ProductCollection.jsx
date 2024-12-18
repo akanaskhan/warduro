@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import mens from "../assets/images/mens.PNG";
+import mens from "../assets/images/mens.png";
 import womens from "../assets/images/womens.png";
 import tester2 from "../assets/images/customize.PNG";
 import BottomLine from "./BottomLine";
