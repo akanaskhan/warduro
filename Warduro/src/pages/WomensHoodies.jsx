@@ -45,12 +45,12 @@ function WomensHoodies() {
   
 
   const renderProducts = (products) => (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-8">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 my-8">
       {products?.map((data) => (
                     // <Badge.Ribbon text="Sale" color="red" key={data.id} className="">
 
 
-        <div className="border rounded overflow-hidden sale-ribbon shadow relative" key={data.id}>
+        <div className=" rounded-md overflow-hidden sale-ribbon shadow-md relative" key={data.id}>
           <SaleBadge/>
           <Link to={`/products/${data?.id}`}>
             <div className="image-box rounded">
@@ -58,22 +58,29 @@ function WomensHoodies() {
               <img src={data?.img} alt={data?.title} className="hover-img" />
             </div>
           </Link>
-          <div className="bg-white z-50 p-2 pt-1 lg:pt-2 md:pt-2 xl:pt-2">
-            <h1 className=" font-semibold line-clamp-1">{data?.title}</h1>
-            <h1 className="text-gray-600 hide-text line-clamp-1">{data?.ProductCategory}</h1>
-            <div className="flex gap-2 mb-1 justify-between">
-            <h1 className="font-bold my-2 text-gray-600"><del>Rs. {data?.price}/-</del></h1>
+          <div className=" bg-white z-50">
+                    <div className="p-2">
+                      <h1 className=" font-semibold seach-category">{data?.title}</h1>
+                      <h1 className="text-sm">For {data?.category}</h1>
+                      <div className="flex gap-2 justify-between  mb-0 ">
                      
-                     <h1 className="font-bold my-2 themeText">Rs. {data?.SalePrice}/-</h1>
-            </div>
-            {/* <ThemeButton text={isItemAdded(data?.id) ? "Added in your cart" : "Add to Cart"}/> */}
-            <button
-              className="learn-btn transition-all px-3 rounded w-full py-2"
-              onClick={() => addItemToCart(data)}
-              >
-              {isItemAdded(data?.id) ? "Added in your cart" : "Add to Cart"}
-            </button>
-          </div>
+                        <h1 className="font-semibold my-1.5 text-gray-600"><del>Rs. {data?.price}/-</del></h1>
+                        
+                        <h1 className="font-semibold my-1.5 themeText">Rs. {data?.SalePrice}/-</h1>
+
+                       
+                      </div>
+                      <button
+                        className="learn-btn transition-all  rounded w-full py-2 text-sm md:text-base lg:text-base xl:text-base "
+                        onClick={() => addItemToCart(data)}
+                      >
+                        {isItemAdded(data.id)
+                          ? `Added in your cart`
+                          : `Add to Cart`}
+                      </button>
+                    </div>
+                   
+                  </div>
         </div>
               // </Badge.Ribbon>
       ))}
