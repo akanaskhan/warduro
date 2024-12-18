@@ -60,10 +60,10 @@ function AllProducts() {
             <div className="flex justify-center my-4 text-center items-center">
               <BottomLine text={'All Hoodies'} className={'text-3xl md:text-3xl lg:text-3xl xl:text-4xl font-bold text-black '}/>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 my-8 " >
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 my-8 " >
               {products?.map((data) => (
                 <div
-                  className="border rounded-md overflow-hidden relative"
+                  className="shadow-md rounded-md overflow-hidden relative"
                   key={data?.id}
                   
                 >
@@ -85,16 +85,16 @@ function AllProducts() {
                     <div className="p-2">
                       <h1 className=" font-semibold seach-category">{data?.title}</h1>
                       <h1 className="text-sm">{data?.category}</h1>
-                      <div className="flex gap-2  mb-1 text-lg">
+                      <div className="flex gap-2 justify-between  mb-1 ">
                      
-                        <h1 className="font-semibold my-2 text-gray-600"><del>Rs. {data?.price}/-</del></h1>
+                        <h1 className="font-semibold my-1.5 text-gray-600"><del>Rs. {data?.price}/-</del></h1>
                         
-                        <h1 className="font-semibold my-2 themeText">Rs. {data?.SalePrice}/-</h1>
+                        <h1 className="font-semibold my-1.5 themeText">Rs. {data?.SalePrice}/-</h1>
 
                        
                       </div>
                       <button
-                        className="learn-btn transition-all px-3 rounded w-full py-2 "
+                        className="learn-btn transition-all  rounded w-full py-2 text-sm md:text-base lg:text-base xl:text-base "
                         onClick={() => addItemToCart(data)}
                       >
                         {isItemAdded(data.id)
