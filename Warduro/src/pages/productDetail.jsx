@@ -9,24 +9,26 @@ import { Spin } from "antd";
 import { Button, Image } from "antd";
 import NotFound from "../pages/notfound";
 import Loader from "../loader";
+import { AuthContext } from "../context/AuthContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { addItemToCart, lessQuantityFromCart, isItemAdded, buyNow } =
-    useContext(CartContext);
-  const navigate = useNavigate();
+  const [selectedSize, setSelectedSize] = useState(""); // State to store selected size
+  const { addItemToCart, isItemAdded, buyNow } = useContext(CartContext);
+  const navigate = useNavigate()
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
-    const products = async () => {
+    const fetchProduct = async () => {
       try {
         const docRef = doc(db, "WarduroProducts", id);
         const productInfo = await getDoc(docRef);
         if (productInfo.exists()) {
           setProduct(productInfo.data());
         } else {
-          console.log("No such document!");
+          console.error("No such document!");
         }
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -34,9 +36,7 @@ const ProductDetail = () => {
         setLoading(false);
       }
     };
-    
-    
-    products();
+    fetchProduct();
   }, [id]);
 
   if (loading) {
@@ -48,13 +48,32 @@ const ProductDetail = () => {
   }
 
   if (!product) {
-    return (
-      <div>
-        <NotFound />
-      </div>
-    );
+    return <div><NotFound/></div>;
   }
 
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
+    addItemToCart({ ...product, selectedSize });
+  };
+
+  const handleBuyNow = () => {
+    if (!selectedSize) {
+      alert("Please select a size before buying.");
+
+      return;
+    }else if(selectedSize  && !user){
+      alert("Please login.");
+      return;
+    
+    }else{
+      navigate('/checkout');
+      return;
+    }
+    buyNow({ ...product, selectedSize });
+  };
   return (
     <section className="text-gray-600 body-font overflow-hidden mt-16 md:mt-20 lg:mt-20 xl:mt-20">
       <div className="container px-5 py-24 mx-auto">
@@ -160,13 +179,20 @@ const ProductDetail = () => {
             <div className=" mt-6  pb-2 border-b-2 border-gray-100 mb-3">
              
               <div className="flex ml-6 items-center">
-                <span className="mr-3">ML</span>
+                <span className="mr-3">Size</span>
                 <div className="relative">
-                  <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                   
-                      <option>{product?.ML}</option>
-                   
-                  </select>
+                <select
+                className="rounded border appearance-none border-gray-300 py-2 pl-3 pr-10"
+                value={selectedSize}
+                onChange={(e) => setSelectedSize(e.target.value)}
+              >
+                <option value="">Select Size</option>
+                {product.sizes?.map((size, index) => (
+                  <option key={index} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
                   <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                     <svg
                       fill="none"
@@ -196,24 +222,23 @@ const ProductDetail = () => {
 
               <button
                 className="learn-btn lg:px-3 p-2 w-full  rounded transition-all sticky bottom-1"
-                onClick={() => addItemToCart(product)}
+                onClick={handleAddToCart}
               >
                 {isItemAdded(id)
                   ? `Added in your cart
 
 
 `
-                  : `Add to Cart`}{
-                  }
+                  : `Add to Cart`}
               </button>
-              <Link to="/checkout">
+             
                 <button
                   className="learn-btn lg:px-3 p-2 my-3 w-full  rounded transition-all themeBackground"
-                  onClick={() => buyNow(product)}
+                  onClick={handleBuyNow}
                 >
                   Buy Now
                 </button>
-              </Link>
+              
             </div>
           </div>
         </div>

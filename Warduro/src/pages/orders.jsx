@@ -91,7 +91,7 @@ export default function AllOrders() {
   };
 
   const renderNestedFields = (obj) => {
-    const requiredFields = ["img", "title", "price", "ml", "quantity", "createdAt"];
+    const requiredFields = ["img", "title", "price", "selectedSize", "quantity", "createdAt"];
     return Object.keys(obj).map((key) => {
       const value = obj[key];
       if (requiredFields.includes(key)) {
@@ -195,7 +195,7 @@ export default function AllOrders() {
           <Button type="primary" onClick={() => markAsShipped(order)}>
             Mark as Shipped
           </Button>
-          <Button type="danger" onClick={() => deleteOrder(order)}>
+          <Button type="danger" onClick={() => deleteOrder(order)} variant="danger" className="danger btn bg-red-600 hover:bg-red-700 whiteText" >
             Delete Order
           </Button>
         </div>

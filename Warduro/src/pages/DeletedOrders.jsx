@@ -26,13 +26,24 @@ export default function DeletedOrders() {
     }
   };
 
-  const renderOrderDetails = (order) => {
+  const renderOrderDetails = (order, index) => {
     return (
       <div className="pl-4">
-        <div><strong>Title:</strong> {order.title}</div>
-        <div><strong>Price:</strong> {order.price}</div>
-        <div><strong>Quantity:</strong> {order.quantity}</div>
-        <div><strong>Date:</strong> {new Date(order.createdAt.seconds * 1000).toLocaleDateString()}</div>
+        {deletedOrders.map((order, index) => (
+        <div key={index} className="order-item">
+          <div><strong>Title:</strong> {order.title || "N/A"}</div>
+          <div><strong>Price:</strong> {order.price || "N/A"}</div>
+          <div><strong>Quantity:</strong> {order.Quantity || "N/A"}</div>
+          <div><strong>Date:</strong> {new Date(order.createdAt.seconds * 1000).toLocaleDateString()}</div>
+          <div><strong>Name:</strong> {order.FirstName} {order.LastName}</div>
+          <div><strong>Email:</strong> {order.Email}</div>
+          <div><strong>Phone:</strong> {order.PhoneNumber}</div>
+          <div><strong>Address:</strong> {order.Address}, {order.City}, {order.province}</div>
+          <div><strong>Postal Code:</strong> {order.PostalCode}</div>
+          <div><strong>Status:</strong> {order.status}</div>
+          <hr />
+        </div>
+      ))}
       </div>
     );
   };

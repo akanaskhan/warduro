@@ -42,35 +42,40 @@ function Checkout() {
 
   const onSubmit = (data) => {
     const OderRef = collection(db, "WarduroOrders");
+
+    const cartItemsObject = cartItems.reduce((acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    }, {});
+
     const obj = {
       ...data,
-      ...cartItems,
+      cartItems: cartItemsObject,
       TotalAmount: totalAmountWithSipping,
       Quantity: totalQuantity,
       createdAt: serverTimestamp(),
       OrderBy: auth.currentUser.uid,
       status: "Booked",
     };
-  
+
     addDoc(OderRef, obj)
       .then(() => {
         localStorage.setItem("cartItems", "0"); // Reset cart items in localStorage
         reset(); // Reset the form
         message.success("Order Booked Successfully");
-  
+
         // Wait for 2 seconds before reloading the page
         setTimeout(() => {
           window.location.reload();
         }, 2000);
-        navigate('/');
+        navigate("/");
       })
       .catch((error) => {
-        message.error("Something went wrong. Please try again.");
         console.error("Error booking order: ", error);
+        message.error("Something went wrong. Please try again.");
       });
   };
-  
-
+console.log(cartItems);
   return (
     <>
       <div className="container mt-24 md:mt-20 lg:mt-28 xl:mt-28">
@@ -187,15 +192,19 @@ function Checkout() {
                 placeholder={"Phone Number 03XXXXXXXXX"}
                 obj={{
                   ...register("Phone Number", {
-                    required: true,
-                    maxLength: 11,
+                    required: "Phone Number is required",
+                    pattern: {
+                      value: /^03[0-9]{9}$/,
+                      message: "Invalid Phone number",
+                    },
                   }),
                 }}
-                errorMsg={"Phone Number is required and length should be 11"}
+                errorMsg={errors["Phone Number"]?.message}
                 formKey={"Phone Number"}
-                type={"number"}
+                type={"text"}
                 errors={errors}
               />
+
               <div>
                 <label htmlFor="" className="text-2xl font-bold mt-4">
                   Shipping
@@ -203,13 +212,19 @@ function Checkout() {
               </div>
               <CustomInput
                 placeholder={"Shipping charges Rs. 300"}
-                value={"Shipping charges Rs. 300"}
-                obj={{ ...register("Shipping charges Rs. 300") }}
-                errorMsg={"COD is required"}
-                formKey={"Shipping charges Rs. 300"}
+                value={300}
+                obj={{
+                  ...register("ShippingCharges", {
+                    required: true,
+                    value: 300,
+                  }),
+                }}
+                errorMsg={"Shipping charges are required"}
+                formKey={"ShippingCharges"}
                 disabled
                 errors={errors}
               />
+
               <div>
                 <label htmlFor="" className="text-2xl font-bold mt-4">
                   Payment Method
@@ -255,7 +270,10 @@ function Checkout() {
               </div>
               <button
                 type="submit"
-                className="learn-btn w-full lg:w-2/3 p-2.5 mt-4 rounded transition-all  themeBackground"
+                className={`learn-btn w-full lg:w-2/3 p-2.5 mt-4 rounded transition-all themeBackground ${
+                  cartItems.length === 0 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={cartItems.length === 0} // Disable when cart is empty
               >
                 Complete order
               </button>
@@ -264,44 +282,43 @@ function Checkout() {
 
           <div className="w-full  lg:w-1/3 flex flex-col  rounded  ">
             <div className="">
-              <div className="h-96 overflow-y-scroll my-2 px-2  cartInnerShadow drop-shadow-xl rounded-2xl cart">
-
-              {cartItems.map((product, index) => (
-                <div
-                key={product.id || `cart-item-${index}`}
-                  className="flex justify-stretch 
+              <div className=" min-h-fit max-h-96  overflow-y-auto my-2 px-2  cartInnerShadow drop-shadow-xl rounded-2xl cart">
+                {cartItems.map((product, index) => (
+                  <div
+                    key={product.id || `cart-item-${index}`}
+                    className="flex justify-stretch 
                   border my-2 p-2.5  sm:p-2 md:p-2 lg:p-3 xl:p-3 rounded "
-                >
-                  <div className="max-w-12 min-w-12  ">
-                    <Badge count={product.quantity}>
-                      <img
-                        className="rounded object-cover w-full h-full "
-                        src={product.img}
-                      />
-                    </Badge>
-                  </div>
-                  <div className="flex   justify-evenly ">
-                    <div className="flex flex-col pl-5">
-                      <div className="flex  mb-2 ">
-                        <p className="font-bold line-clamp-1">
-                          {product.title}
-                        </p>
-                        <p className="text-sm tracking-widest ml-1">
-                          {" "}
-                          {`(${product.category.substr(0, 5)}...)`}
-                        </p>
-                      </div>
+                  >
+                    <div className="max-w-12 min-w-12  ">
+                      <Badge count={product.quantity}>
+                        <img
+                          className="rounded object-cover w-full h-full "
+                          src={product.img}
+                        />
+                      </Badge>
+                    </div>
+                    <div className="flex   justify-evenly ">
+                      <div className="flex flex-col pl-5">
+                        <div className="flex  mb-2 ">
+                          <p className="font-bold line-clamp-1">
+                            {product.title}
+                          </p>
+                          <p className="text-sm tracking-widest ml-1">
+                            {" "}
+                            {`(${product.category.substr(0, 5)}...)`}
+                          </p>
+                        </div>
 
-                      <p className="font-normal  mb-2">{product.ML}</p>
+                        <p className="font-normal  mb-2">{product.ML}</p>
+                      </div>
+                    </div>
+                    <div className="ml-12 flex  ms-auto ">
+                      <p className="font-normal  mb-2 ">
+                        Rs: {product.SalePrice}/-
+                      </p>
                     </div>
                   </div>
-                  <div className="ml-12 flex  ms-auto ">
-                    <p className="font-normal  mb-2 ">
-                      Rs: {product.SalePrice}/-
-                    </p>
-                  </div>
-                </div>
-              ))}
+                ))}
               </div>
               <div>
                 <div className="flex flex-col mt-4 themeBackground rounded py-3 amountSection">

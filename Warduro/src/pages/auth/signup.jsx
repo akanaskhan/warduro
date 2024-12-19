@@ -170,7 +170,7 @@ function SignUp() {
             </button>
           </Link>
         </div>
-        {/* <button
+        <button
           className="w-72 learn-btn themeBackground transition-all flex border border-black rounded mt-3 focus:rounded focus:outline-none active:outline-none active:border-none focus:border-none py-1.5 px-2 hover:bg-black hover:text-white justify-center items-center"
           onClick={handleLogin}
         >
@@ -180,7 +180,7 @@ function SignUp() {
             alt=""
           />
           Sign Up with Google
-        </button> */}
+        </button>
       </div>
     </div>
   );

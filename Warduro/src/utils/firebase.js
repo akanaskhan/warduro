@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp , getApps, getApp} from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
@@ -14,7 +14,18 @@ import {
 } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-const firebaseConfig = {
+const databaseConfig = {
+  apiKey: import.meta.env.VITE_DATABASE_API_KEY,
+  authDomain: import.meta.env.VITE_DATABASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_DATABASE_PROJECT_ID,
+  databaseURL: import.meta.env.VITE_DATABASE_DATABASE_URL,
+  storageBucket: import.meta.env.VITE_DATABASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_DATABASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_DATABASE_APP_ID,
+  measurementId: import.meta.env.VITE_DATABASE_MEASUREMENT_ID
+};
+
+const storageConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
@@ -25,13 +36,20 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+// Initialize Storage App
+const storageApp = getApps().length
+  ? getApp("storageApp")
+  : initializeApp(storageConfig, "storageApp");
+const storage = getStorage(storageApp);
+const storageDB = getStorage(storageApp);
+
+// Initialize Database App
+const app = getApps().find((app) => app.name === "[DEFAULT]")
+  ? getApp("[DEFAULT]")
+  : initializeApp(databaseConfig);
+const db = getFirestore(app);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const db = getFirestore(app);
-const storageDB = getStorage(app);
-const storage = getStorage(app)
 
 onAuthStateChanged(auth, (user) => {
   if (user) {

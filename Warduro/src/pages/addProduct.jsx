@@ -44,12 +44,12 @@ export default function AddProduct() {
   const onSubmit = async (data) => {
     try {
       const productCollectionRef = collection(db, "WarduroProducts");
-
+  
       // Upload image to Firebase Storage
       const imageFile = data.img[0];
       const fileRef = ref(storage, `WarduroImages/${imageFile.name}`);
       const uploadTask = uploadBytesResumable(fileRef, imageFile);
-
+  
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -65,13 +65,14 @@ export default function AddProduct() {
           const downloadURL = await getDownloadURL(fileRef);
           const productData = {
             ...data,
+            sizes: data.sizes, // Selected sizes as an array
             img: downloadURL,
-            category: data.category, // Selected category from dropdown
+            category: data.category,
             createdAt: serverTimestamp(),
             createdBy: auth.currentUser.uid,
-            status: "active",
+            status: "In Stock",
           };
-
+  
           await addDoc(productCollectionRef, productData);
           reset();
           setProgress(0);
@@ -83,6 +84,7 @@ export default function AddProduct() {
       message.info("Please Login");
     }
   };
+  
 
   return (
     <>
@@ -134,23 +136,26 @@ export default function AddProduct() {
               )}
             </div>
             <div className="mx-4">
-              <select
-                className="border mt-2 w-full border-purple-600 lg:w-2/3 mx-auto p-2 px-3 rounded-md"
-                {...register("ML", { required: true })}
-              >
-                <option value="">Select Size</option>
-                <option value="Sm">SM</option>
-                <option value="MD">MD</option>
-                <option value="LG">LG</option>
-                <option value="XL">XL</option>
-                <option value="XXl">XXL</option>
-              </select>
-              {errors.ML && (
-                <span className="text-sm mb-1 text-red-500">
-                 <br/> Size is required
-                </span>
-              )}
-            </div>
+  <label className="block mb-2">Select Sizes</label>
+  <div className="flex flex-wrap gap-4">
+    {["MD", "LG", "XL"].map((size) => (
+      <label key={size} className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          value={size}
+          {...register("sizes", { required: true })}
+        />
+        <span>{size}</span>
+      </label>
+    ))}
+  </div>
+  {errors.sizes && (
+    <span className="text-sm mb-1 text-red-500">
+      At least one size must be selected
+    </span>
+  )}
+</div>
+
             <CustomInput
               placeholder={"Actual Price"}
               obj={{ ...register("price", { required: true }) }}
