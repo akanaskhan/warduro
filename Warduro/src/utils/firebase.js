@@ -44,6 +44,7 @@ const storage = getStorage(storageApp);
 const storageDB = getStorage(storageApp);
 
 // Initialize Database App
+
 const app = getApps().find((app) => app.name === "[DEFAULT]")
   ? getApp("[DEFAULT]")
   : initializeApp(databaseConfig);
