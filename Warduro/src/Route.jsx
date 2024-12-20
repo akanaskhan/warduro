@@ -34,6 +34,7 @@ import RefundExchangePolicy from "./pages/RefundAndExchangePolicy.jsx";
 import ContactFeedbacks from "./pages/ContactFeedbacks.jsx";
 import UserOrders from "./pages/UserOrders.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
+import AllEditableProducts from "./pages/AllProducts.jsx";
 
 function AppRouter() {
   const { user } = useContext(AuthContext);
@@ -98,6 +99,16 @@ function AppRouter() {
             <DeliveredOrders />
           ) : (
             <Navigate to="/notfound" />
+          )
+        }/>
+        <Route path="/all-products" element=
+        {
+          auth.currentUser?.uid === import.meta.env.VITE_USER_UID ||
+          auth.currentUser?.uid === import.meta.env.VITE_USER2_UID ? (
+            <AllEditableProducts   />
+          ) : (
+            <Navigate to="/notfound" />
+     
           )
         }/>
 

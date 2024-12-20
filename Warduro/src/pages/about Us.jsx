@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import aboutImage from "../assets/images/customize.png"; // Replace with your own image
 import Loader from '../loader';
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
+import { Link, useNavigate } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
+import { db } from '../utils/firebase';
+import SaleBadge from '../components/SaleBadge';
+import { Spin } from 'antd';
 
 const AboutUs = () => {
   const aboutData = {
@@ -31,6 +37,46 @@ const AboutUs = () => {
   useEffect(() => {
     setData(aboutData);
   }, []);
+
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState({}); // Track loading status for each image
+
+  const { cartItems, addItemToCart, isItemAdded } = useContext(CartContext);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    try {
+      const prodCollection = collection(db, "WarduroProducts");
+      const q = query(prodCollection, orderBy("createdAt", "desc"), limit(3));
+      const docs = await getDocs(q);
+      const arr = [];
+      docs.forEach((product) =>
+        arr.push({ ...product.data(), id: product.id })
+      );
+      setProducts([...arr]);
+      setLoader(false);
+    } catch (err) {
+      console.log(err);
+      setLoader(false);
+    }
+  };
+
+  const handleImageLoad = (id) => {
+    setTimeout(() => {
+      setImageLoaded((prev) => ({ ...prev, [id]: true }));
+    }, 2000); // Simulate 2-second loading delay
+  };
+
+  const scrollToTop = () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+  };
+
 
   if (!data) {
     return (
@@ -100,15 +146,66 @@ const AboutUs = () => {
 
       {/* Product Showcase Section */}
       <div className="mb-16">
-        <h2 className="text-3xl font-bold text-center text-black mb-6">Our Hoodies</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {products?.map((data) => (
+  <Link
+    to={`/products/${data.id}`}
+    key={data.id}
+    className="hover:text-black"
+  >
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="relative">
+        {!imageLoaded[data.id] ? (
+          <div className="flex justify-center items-center h-56 bg-gray-200">
+            <Spin size="small" className="text-black" />
+          </div>
+        ) : (
+          <img
+            src={data?.img}
+            alt={data?.title}
+            className="w-full h-auto object-cover rounded opacity-0 transition-opacity duration-1000 ease-in-out"
+            onLoad={(e) => {
+              e.target.classList.add("opacity-100");
+            }}
+          />
+        )}
+        {!imageLoaded[data.id] && handleImageLoad(data.id)}
+        <SaleBadge />
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-black mb-4">
+          {data?.title || "Premium Hoodie"}
+        </h3>
+        <p className="text-gray-600 mb-4 line-clamp-2">
+          {data?.desc || "A cozy, stylish hoodie made from premium fabric. Perfect for chilly days."}
+        </p>
+        <div className="flex gap-2 front-page-price text-lg mb-4">
+          <p className="font-bold text-gray-600">
+            <del>Rs. {data?.price || "0"}/-</del>
+          </p>
+          <p className="font-bold themeText">
+            Rs. {data?.SalePrice || "0"}/-
+          </p>
+        </div>
+        <Link
+          to={`/products/${data.id}`}
+          className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
+        >
+          View Details
+        </Link>
+      </div>
+    </div>
+  </Link>
+))}
+
           {/* Product 1 */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="/path-to-your-product-image.jpg" // Replace with actual product image
-              alt="Product 1"
-              className="w-full h-56 object-cover"
-            />
+          {/* <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+       
+          <img
+          src="/path-to-your-product-image.jpg" // Replace with actual product image
+          alt="Product 1"
+          className="w-full h-56 object-cover"
+          />
             <div className="p-6">
               <h3 className="text-xl font-semibold text-black mb-4">Premium Hoodie 1</h3>
               <p className="text-gray-600 mb-4">
@@ -117,12 +214,13 @@ const AboutUs = () => {
               <a
                 href="/product/1"
                 className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-              >
+                >
                 View Details
               </a>
             </div>
           </div>
-          {/* Product 2 */}
+             
+          
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <img
               src="/path-to-your-product-image.jpg" // Replace with actual product image
@@ -137,18 +235,18 @@ const AboutUs = () => {
               <a
                 href="/product/2"
                 className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-              >
+                >
                 View Details
               </a>
             </div>
           </div>
-          {/* Product 3 */}
+          
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <img
               src="/path-to-your-product-image.jpg" // Replace with actual product image
               alt="Product 3"
               className="w-full h-56 object-cover"
-            />
+              />
             <div className="p-6">
               <h3 className="text-xl font-semibold text-black mb-4">Custom Hoodie 3</h3>
               <p className="text-gray-600 mb-4">
@@ -157,11 +255,12 @@ const AboutUs = () => {
               <a
                 href="/product/3"
                 className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-              >
+                >
                 View Details
               </a>
             </div>
-          </div>
+          </div> */}
+
         </div>
       </div>
     </div>
