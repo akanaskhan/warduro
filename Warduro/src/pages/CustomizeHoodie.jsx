@@ -1,5 +1,5 @@
 
-import customize from "../assets/images/intro.png";
+import customize from "../assets/images/customize.png";
 import CustomizeHoodie2 from "../assets/images/customize.png";
 import { Carousel } from "antd";
 import { CartContext } from "../context/CartContext";
