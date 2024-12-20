@@ -313,7 +313,7 @@ function NavBar() {
                             src={data.img}
                             alt={data.title}
                           />
-                          <div className="pl-1.5  content-center">
+                          <div className="pl-1.5  content-center blackText">
                             <p className=" font-semibold line-clamp-1">
                               {data.title}
                             </p>
@@ -357,14 +357,14 @@ function NavBar() {
                         onClick={() => handleProductClick(data)}
                         className="my-1 mx-1 py-2 border-b"
                       >
-                        <div className="flex">
+                        <div className="flex " >
                           <img
                             className="img p-1 rounded-xl h-20 object-cover"
                             src={data.img}
                             alt={data.title}
                           />
-                          <div className="pl-1.5 content-center">
-                            <p className="font-semibold line-clamp-1">
+                        <div className="pl-1.5 content-center blackText " style={{color : 'black !important'}}>
+                            <p className="font-semibold line-clamp-1 ">
                               {data.title}
                             </p>
                             <p className="text-sm seach-category">

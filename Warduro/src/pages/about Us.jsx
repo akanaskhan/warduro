@@ -136,12 +136,14 @@ const AboutUs = () => {
         <p className="text-lg text-gray-600 mb-6">
           Express yourself! Our hoodie customization service lets you design your perfect hoodie. Whether it’s a unique logo, a catchy phrase, or a full design, we’ll make sure it’s exactly how you envision it.
         </p>
-        <a
-          href="/customize"
+        <Link to="/customize-hoodie">
+        <buttom
+         onClick={scrollToTop}
           className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-3 px-8 focus:outline-none rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105"
-        >
+          >
           Start Customizing
-        </a>
+        </buttom>
+          </Link>
       </div>
 
       {/* Product Showcase Section */}
@@ -157,7 +159,7 @@ const AboutUs = () => {
       <div className="relative">
         {!imageLoaded[data.id] ? (
           <div className="flex justify-center items-center h-56 bg-gray-200">
-            <Spin size="small" className="text-black" />
+            <Loader className={'w-16 h-16'} />
           </div>
         ) : (
           <img
@@ -198,68 +200,7 @@ const AboutUs = () => {
   </Link>
 ))}
 
-          {/* Product 1 */}
-          {/* <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-       
-          <img
-          src="/path-to-your-product-image.jpg" // Replace with actual product image
-          alt="Product 1"
-          className="w-full h-56 object-cover"
-          />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-black mb-4">Premium Hoodie 1</h3>
-              <p className="text-gray-600 mb-4">
-                A cozy, stylish hoodie made from premium fabric. Perfect for chilly days.
-              </p>
-              <a
-                href="/product/1"
-                className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-                >
-                View Details
-              </a>
-            </div>
-          </div>
-             
-          
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="/path-to-your-product-image.jpg" // Replace with actual product image
-              alt="Product 2"
-              className="w-full h-56 object-cover"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-black mb-4">Normal Hoodie 2</h3>
-              <p className="text-gray-600 mb-4">
-                A comfortable hoodie that offers great value for money. Available in multiple colors.
-              </p>
-              <a
-                href="/product/2"
-                className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-                >
-                View Details
-              </a>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="/path-to-your-product-image.jpg" // Replace with actual product image
-              alt="Product 3"
-              className="w-full h-56 object-cover"
-              />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold text-black mb-4">Custom Hoodie 3</h3>
-              <p className="text-gray-600 mb-4">
-                Design your own hoodie with our easy customization tool. Make it yours today!
-              </p>
-              <a
-                href="/product/3"
-                className="inline-flex items-center justify-center text-white bg-[#FFAA00] hover:bg-[#FF9A00] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg"
-                >
-                View Details
-              </a>
-            </div>
-          </div> */}
+      
 
         </div>
       </div>

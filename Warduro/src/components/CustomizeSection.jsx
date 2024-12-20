@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { BsArrowClockwise, BsArrowRight, BsArrowUpRightCircle } from "react-icons/bs";
-import intro from "../assets/images/intro.png";
+import customize from "../assets/images/customize.png";
 import BottomLine from "./BottomLine";
 
 
@@ -41,7 +41,7 @@ export default function CustomizeSection() {
         <div className="w-full md:w-1/2 flex justify-center -z-0">
           <div className="relative w-80 h-96 md:w-96 md:h-[28rem]  rounded-lg shadow-xl overflow-hidden">
             <img
-              src={intro} // Replace with your hoodie mockup image
+              src={customize} // Replace with your hoodie mockup image
               alt="Custom Hoodie Design"
               className="w-full h-full object-cover"
             />
