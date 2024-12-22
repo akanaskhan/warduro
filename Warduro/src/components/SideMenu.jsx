@@ -33,7 +33,7 @@ function getItem(label, key, icon, children, path) {
 
 const items = [
   getItem('Add Product', '1', <FileOutlined />, null, '/addproduct'), // Option 1 navigates to /option1
-  getItem('All Product', '2', <FileOutlined />, null, '/products'), // Option 1 navigates to /option1
+  getItem('All Product', '2', <FileOutlined />, null, '/all-products'), // Option 1 navigates to /option1
   getItem('Orders', '3', <ShoppingCartOutlined />, null, '/orders'),
   getItem('Cancelled', '4', <ImCancelCircle />, null, '/deleted-orders'),
   // getItem('Orders', 'sub1', <ShoppingCartOutlined />, [
