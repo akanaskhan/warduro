@@ -167,7 +167,8 @@ function AppRouter() {
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/refund-and-exchange-policy" element={<RefundExchangePolicy/>} />
         <Route path="/blog" element={<BlogPage/>} />
-        <Route path="*" element={<Navigate to="/notfound" />} />
+        <Route path="/blog" element={<BlogPage/>} />
+        {/* <Route path="*" element={<Navigate to="/notfound" />} /> */}
       </Routes>
       <Footer />
     </BrowserRouter>
