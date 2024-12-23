@@ -23,13 +23,13 @@ export default function CustomizeSection() {
           </p>
           <div className="mt-6 flex flex-col md:flex-row items-center gap-4">
             <button
-              onClick={() => navigate("/customize")}
+              onClick={() => navigate("/customize-hoodie")}
               className="themeBackground whiteText font-bold py-3 px-8 rounded-full shadow-lg hover:scale-105 transition-transform"
             >
               Start Designing <BsArrowUpRightCircle className="inline ml-2 text-2xl" />
             </button>
             <button
-              onClick={() => navigate("/gallery")}
+              onClick={() => navigate("/products")}
               className="border border-white whiteText font-bold py-3 px-8 rounded-full hover:themeText hover:themeText transition-all"
             >
               Explore Designs
