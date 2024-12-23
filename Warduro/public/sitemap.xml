@@ -16,25 +16,28 @@
         <priority>0.8</priority>
     </url>
     
-    <!-- About page (assuming it exists) -->
+    <!-- Men Hoodies page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/mens-hoodies</loc>
         <lastmod>2024-12-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+    <!-- Womens Hoodies page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/womens-hoodies</loc>
         <lastmod>2024-12-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
+     <!-- About page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/about-us</loc>
         <lastmod>2024-12-24</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
+     <!-- Customize Hoodie page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/customize-hoodie</loc>
         <lastmod>2024-12-24</lastmod>
@@ -65,12 +68,14 @@
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
+     <!-- Refund and Exchange Policy page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/refund-and-exchange-policy</loc>
         <lastmod>2024-12-24</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
+     <!-- Blog page (assuming it exists) -->
     <url>
         <loc>https://www.warduro.com/blog</loc>
         <lastmod>2024-12-24</lastmod>
