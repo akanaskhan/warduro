@@ -7,11 +7,15 @@ import SignOutContextProvider from "./context/SignOut.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CartContextProvider from "./context/CartContext.jsx";
 import { BrowserRouter, useNavigate } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+  
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
+     <HelmetProvider>
+
     <AuthContextProvider>
       
       <CartContextProvider>
@@ -21,5 +25,6 @@ createRoot(document.getElementById("root")).render(
       </CartContextProvider>
          
     </AuthContextProvider>
+     </HelmetProvider>
   </QueryClientProvider>
 );

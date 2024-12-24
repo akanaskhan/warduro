@@ -11,6 +11,7 @@ import Loader from "../loader.jsx";
 import ThemeButton from "../components/ThemeButton.jsx";
 import SaleBadge from "../components/SaleBadge.jsx";
 import BottomLine from "../components/BottomLine.jsx";
+import { Helmet } from "react-helmet-async";
 dayjs.extend(relativeTime);
 
 function WomensHoodies() {
@@ -89,6 +90,17 @@ function WomensHoodies() {
 
   return (
     <div className="container mx-auto">
+      <Helmet>
+        <title>Women's Hoodies - Warduro</title>
+        <meta name="description" content="Explore the best collection of men's hoodies at Warduro. Premium quality and trendy designs for all seasons." />
+        <meta name="keywords" content="men's hoodies, hoodies for men, stylish hoodies, Warduro men's collection" />
+        <meta name="author" content="Warduro" />
+        <meta property="og:title" content="Women's Hoodies - Warduro" />
+        <meta property="og:description" content="Shop the latest Women's hoodies at Warduro. Perfect for casual wear and trendy styles." />
+        <meta property="og:url" content="https://www.warduro.com/mens-hoodies" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.warduro.com/assests/images/intro.png" />
+      </Helmet>
       {loader ? (
         <div className="flex h-screen justify-center items-center">
           <Loader className="w-28 h-28" />

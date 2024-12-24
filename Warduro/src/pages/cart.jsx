@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { BsArrowUpRightCircle } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import BottomLine from "../components/BottomLine";
+import { Helmet } from "react-helmet-async";
 
 function Cart() {
   const { cartItems, removeItemFromCart, addItemToCart, lessQuantityFromCart } =
@@ -22,6 +23,17 @@ function Cart() {
 
   return (
     <div className="container-sm mx-auto mb-5 mt-24 md:mt-20 lg:mt-28 xl:mt-28">
+      <Helmet>
+        <title>Your Cart - Warduro</title>
+        <meta name="description" content="View and manage the items in your cart. Checkout your favorite Warduro products easily." />
+        <meta name="keywords" content="Warduro, cart, shopping cart, hoodies, checkout" />
+        <meta name="author" content="Warduro" />
+        <meta property="og:title" content="Your Cart - Warduro" />
+        <meta property="og:description" content="Manage your Warduro cart and prepare for checkout." />
+        <meta property="og:url" content="https://www.warduro.com/cart" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.warduro.com/assests/images/intro.png" />
+      </Helmet>
       <div className="text-center my-4 md:my-6 lg:my-8 xl:my-8">
          <BottomLine text={'Your Cart'} className={'font-bold text-3xl  md:text-3xl lg:text-3xl xl:text-3xl'}/>
          
