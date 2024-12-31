@@ -1,8 +1,12 @@
 import Customize from "../assets/images/customize.png";
 import banner from "../assets/images/banner.png";
+import previous2 from "../assets/images/previous2.png";
+import NewYearBanner from "../assets/images/new-year-banner.png";
+import previous from "../assets/images/previous.png";
+import previous3 from "../assets/images/previous3.png";
 function Slider() {
   return (
-    <div className="-z-50 mt-16 md:mt-20 lg:mt-10 xl:mt-10   h-vh themeBackground ">
+    <div className="-z-50 mt-16 md:mt-20 lg:mt-12 xl:mt-12   h-vh themeBackground ">
       <div
         id="carouselExampleAutoplaying"
         className="carousel    carousel-fade   h-auto "
@@ -11,21 +15,22 @@ function Slider() {
         <div className="carousel-inner carousel ">
           <div className="carousel-item active h-auto ">
             <img
-              src={banner}
+              src={NewYearBanner}
               className="d-block w-full object-cover h-full  "
               alt="..."
             />
           </div>
-          <div className="carousel-item h-auto ">
+         
+          <div className="carousel-item   h-auto ">
             <img
-              src={banner}
+              src={previous3}
               className="d-block w-full object-cover h-full"
               alt="..."
             />
           </div>
           <div className="carousel-item h-auto ">
             <img
-              src={banner}
+              src={previous}
               className="d-block w-full object-cover h-full"
               alt="..."
             />
