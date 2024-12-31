@@ -70,7 +70,7 @@ function SaleBadge() {
       <div className="sale-badge">
         <p>
           {/* Upto <br /> */}
-          35% <br />
+          50% <br />
           OFF
         </p>
       </div>
