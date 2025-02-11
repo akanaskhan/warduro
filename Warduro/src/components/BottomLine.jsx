@@ -20,7 +20,7 @@ export default function BottomLine({ text, lineColor = 'var(--bs-themeColor)', T
       position: 'absolute',
       bottom: '0',
       left: '0', // Align the line to the left
-      width: '70%', // Adjust the width of the line
+      width: '45%', // Adjust the width of the line
       height: '3px', // Thickness of the line
       borderRadius: '5px',
       backgroundColor: lineColor, // Use the prop for the color
