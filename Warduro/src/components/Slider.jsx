@@ -15,7 +15,7 @@ function Slider() {
         <div className="carousel-inner carousel ">
           <div className="carousel-item active h-auto ">
             <img
-              src={NewYearBanner}
+              src={banner}
               className="d-block w-full object-cover h-full  "
               alt="..."
             />
@@ -23,14 +23,14 @@ function Slider() {
          
           <div className="carousel-item   h-auto ">
             <img
-              src={previous3}
+              src={banner}
               className="d-block w-full object-cover h-full"
               alt="..."
             />
           </div>
           <div className="carousel-item h-auto ">
             <img
-              src={previous}
+              src={banner}
               className="d-block w-full object-cover h-full"
               alt="..."
             />
